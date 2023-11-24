@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 import pandas as pd
 import json
+import os
 
 
 def get_random_user_agent():
@@ -36,10 +37,15 @@ def scrape_scroes(response):
 
 
 def writer_(data):
+    path = 'data'
+    if not os.path.exists(path):
+        os.mkdir(path)
+    else:
+        pass
     df = pd.DataFrame(data)
-    df.to_csv('..data/League_scroes.csv', index=False)
-    df.to_excel('..data/League_scroes.xlsx', index=False)
-    with open('..data/League_scroes.json', 'a') as file:
+    df.to_csv('data/League_scroes.csv', index=False)
+    df.to_excel('data/League_scroes.xlsx', index=False)
+    with open('data/League_scroes.json', 'w') as file:
         json.dump(data, file, indent=2)
 
 
